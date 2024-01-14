@@ -1,5 +1,6 @@
 package com.gamesbucket
 
+import android.os.Bundle;
 import com.facebook.react.ReactActivity
 import org.devio.rn.splashscreen.SplashScreen
 import com.facebook.react.ReactActivityDelegate
@@ -9,7 +10,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 class MainActivity : ReactActivity() {
 
   init {
-    SplashScreen.show(this, R.style.SplashScreenTheme, true);
+   SplashScreen.show(this, R.style.SplashScreenTheme,true);
   }
 
   /**

@@ -1,5 +1,6 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <color name="white">#FFF</color>
     <color name="appColor">#010321</color>
-    <color name="status_bar_color">#010101</color>
+    <color name="status_bar_color">#E12027</color>
 </resources>
