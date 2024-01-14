@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,11 +14,16 @@ import {
   View,
   Text,
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 function App() {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={'dark-content'} backgroundColor={'#000'} />
+      <StatusBar barStyle={'light-content'} backgroundColor={'#000123'} />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.mainTitle}>
           <Text style={styles.text}>Hello Developers!</Text>
