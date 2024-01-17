@@ -14,7 +14,9 @@ import {
   View,
   Text,
 } from 'react-native';
+import {Button} from '@rneui/base';
 import SplashScreen from 'react-native-splash-screen';
+import {EmojiHappy} from 'iconsax-react-native';
 
 function App() {
   useEffect(() => {
@@ -27,6 +29,10 @@ function App() {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.mainTitle}>
           <Text style={styles.text}>Hello Developers!</Text>
+          <Button>
+            <EmojiHappy variant="Broken" color="#000" size={54} />
+          </Button>
+          <Button type="outline" title="Outline" />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -41,13 +47,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mainTitle: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
   },
   text: {
     fontSize: 35,
     fontWeight: '600',
     color: '#121320',
+    fontFamily: 'Mulish, sans-serif',
   },
 });
 
