@@ -9,6 +9,7 @@ export const COLORS = {
   appGreen: '#68686B',
   appLightGreen: '#ACACAC',
   appGray: '#8593A3',
+  appTransparent: '#FFFFFF00',
 
   white: '#FFFFFF',
   black: '#000000',
@@ -47,8 +48,8 @@ export const RADIUS = {
   '4xl': 18,
   '5xl': 20,
   '6xl': 22,
-  '7xl': 26,
-  '8xl': 50,
+  '7xl': 25,
+  '8xl': 32,
 };
 
 export const FONTS = {
@@ -67,6 +68,14 @@ export const STYLES = {
   container: {
     flex: 1,
     backgroundColor: COLORS.appPrimary,
+    color: COLORS.white,
+  },
+
+  // typography styles
+  headerTitle: {
+    fontSize: SIZES.xxl,
+    fontFamily: FONTS.nm,
+    color: COLORS.white,
   },
 
   //   Button Styles
