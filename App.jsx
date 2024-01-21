@@ -5,18 +5,14 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
-import {Button} from '@rneui/base';
+import React, { useEffect } from 'react';
+import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import {EmojiHappy} from 'iconsax-react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MainStack from '@screens/stacks/main-stack';
+
+const Stack = createNativeStackNavigator();
 
 function App() {
   useEffect(() => {
@@ -26,15 +22,13 @@ function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} backgroundColor={'#000123'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View style={styles.mainTitle}>
-          <Text style={styles.text}>Hello Developers!</Text>
-          <Button>
-            <EmojiHappy variant="Broken" color="#000" size={54} />
-          </Button>
-          <Button type="outline" title="Outline" />
-        </View>
-      </ScrollView>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Main"
+          screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Main" component={MainStack} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
 }

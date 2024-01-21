@@ -10,7 +10,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 class MainActivity : ReactActivity() {
 
   init {
-   SplashScreen.show(this, R.style.SplashScreenTheme,true);
+    SplashScreen.show(this, R.style.SplashScreenTheme,true);
   }
 
   /**
@@ -25,4 +25,9 @@ class MainActivity : ReactActivity() {
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(null)
+  }
 }
