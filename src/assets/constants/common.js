@@ -6,42 +6,66 @@ import {
   SearchNormal1,
   Sort,
 } from 'iconsax-react-native';
-import { COLORS, SIZES } from './theme';
-import HomeScreen from '@screens/home/home-screen';
+import appTheme from './theme';
+import LiveScreen from '@screens/live/live-screen';
 import SettingsScreen from '@screens/settings/settings-screen';
 
 const bottomTabsList = [
   {
     id: 1,
     name: 'Live',
-    component: HomeScreen,
+    component: LiveScreen,
     icon: (
-      <Brodcast size={SIZES['3xl']} variant="Linear" color={COLORS.appGray} />
+      <Brodcast
+        size={appTheme.SIZES['3xl']}
+        variant="Linear"
+        color={appTheme.COLORS.appGray}
+      />
     ),
     actionIcon: (
-      <Brodcast size={SIZES['3xl']} variant="Bold" color={COLORS.appYellow} />
+      <Brodcast
+        size={appTheme.SIZES['3xl']}
+        variant="Bold"
+        color={appTheme.COLORS.appYellow}
+      />
     ),
   },
   {
     id: 2,
     name: 'Games',
-    component: HomeScreen,
-    icon: <Game size={SIZES['3xl']} color={COLORS.appGray} />,
-    actionIcon: <Game size={SIZES['3xl']} color={COLORS.appYellow} />,
+    component: LiveScreen,
+    icon: <Game size={appTheme.SIZES['3xl']} color={appTheme.COLORS.appGray} />,
+    actionIcon: (
+      <Game size={appTheme.SIZES['3xl']} color={appTheme.COLORS.appYellow} />
+    ),
   },
   {
     id: 3,
     name: 'Offers',
-    component: HomeScreen,
-    icon: <DiscountCircle size={SIZES['3xl']} color={COLORS.appGray} />,
-    actionIcon: <DiscountCircle size={SIZES['3xl']} color={COLORS.appYellow} />,
+    component: LiveScreen,
+    icon: (
+      <DiscountCircle
+        size={appTheme.SIZES['3xl']}
+        color={appTheme.COLORS.appGray}
+      />
+    ),
+    actionIcon: (
+      <DiscountCircle
+        size={appTheme.SIZES['3xl']}
+        color={appTheme.COLORS.appYellow}
+      />
+    ),
   },
   {
     id: 4,
     name: 'Settings',
     component: SettingsScreen,
-    icon: <Setting size={SIZES['3xl']} color={COLORS.appGray} />,
-    actionIcon: <Setting size={SIZES['3xl']} color={COLORS.appYellow} />,
+    icon: (
+      <Setting size={appTheme.SIZES['3xl']} color={appTheme.COLORS.appGray} />
+    ),
+    actionIcon: (
+      <Setting size={appTheme.SIZES['3xl']} color={appTheme.COLORS.appYellow} />
+    ),
   },
 ];
 
@@ -52,12 +76,19 @@ const topHeaderData = [
     options: [
       {
         id: 1,
-        icon: <SearchNormal1 size={SIZES['xxl']} color={COLORS.white} />,
+        icon: (
+          <SearchNormal1
+            size={appTheme.SIZES['xxl']}
+            color={appTheme.COLORS.white}
+          />
+        ),
         name: 'search',
       },
       {
         id: 2,
-        icon: <Sort size={SIZES['xxl']} color={COLORS.white} />,
+        icon: (
+          <Sort size={appTheme.SIZES['xxl']} color={appTheme.COLORS.white} />
+        ),
         name: 'filter',
       },
     ],
@@ -68,21 +99,56 @@ const topHeaderData = [
     options: [
       {
         id: 1,
-        icon: <SearchNormal1 size={SIZES['xxl']} color={COLORS.white} />,
+        icon: (
+          <SearchNormal1
+            size={appTheme.SIZES['xxl']}
+            color={appTheme.COLORS.white}
+          />
+        ),
         name: 'search',
       },
       {
         id: 2,
-        icon: <Sort size={SIZES['xxl']} color={COLORS.white} />,
+        icon: (
+          <Sort size={appTheme.SIZES['xxl']} color={appTheme.COLORS.white} />
+        ),
         name: 'filter',
       },
     ],
   },
 ];
 
+const gamePlatformData = [
+  {
+    id: 'gp01',
+    name: 'all',
+  },
+  {
+    id: 'gp02',
+    name: 'pc',
+  },
+  {
+    id: 'gp03',
+    name: 'steam',
+  },
+  {
+    id: 'gp04',
+    name: 'epic-games-store',
+  },
+  {
+    id: 'gp05',
+    name: 'ubisoft',
+  },
+  {
+    id: 'gp06',
+    name: 'gog',
+  },
+];
+
 const staticData = {
   bottomTabsList,
   topHeaderData,
+  gamePlatformData,
 };
 
 export default staticData;

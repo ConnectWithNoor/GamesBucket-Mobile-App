@@ -78,7 +78,38 @@ export const STYLES = {
     color: COLORS.white,
   },
 
-  //   Button Styles
+  // Grid/flex styles
+  flexRowStart: {
+    flexDirection: 'row',
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+  flexColStart: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  flexColBetween: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  flexRowBetween: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  flexRowCenter: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  // spacing
+  marginVerticalSm: {
+    marginVertical: 14,
+  },
 };
 
 const appTheme = {
