@@ -83,21 +83,25 @@ export const STYLES = {
     flexDirection: 'row',
     display: 'flex',
     justifyContent: 'flex-start',
+    width: '100%',
   },
   flexColStart: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    width: '100%',
   },
   flexColBetween: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    width: '100%',
   },
   flexRowBetween: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%',
   },
   flexRowCenter: {
     display: 'flex',

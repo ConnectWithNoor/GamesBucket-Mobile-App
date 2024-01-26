@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Header } from '@rneui/themed';
 import React from 'react';
 import { STATIC_DATA } from '@assets/constants';
@@ -27,11 +27,14 @@ const TopLRHeader = props => {
           {rightOptions &&
             rightOptions.options.map(option => {
               return (
-                <TouchableOpacity
+                <Pressable
                   key={option.id}
+                  android_ripple={{
+                    color: appTheme.COLORS.appGray,
+                  }}
                   onPress={() => onAction(option.name)}>
                   {option.icon}
-                </TouchableOpacity>
+                </Pressable>
               );
             })}
         </View>

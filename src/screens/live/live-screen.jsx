@@ -13,14 +13,26 @@ import StatsCard from '@components/cards/live-tab-cards/stats-card';
 import { STATIC_DATA } from '@assets/constants';
 import PlatformList from '@components/tabs/platform-list';
 import GiveAwayCard from '@components/cards/live-tab-cards/give-away-card';
+import FilterModal from '@components/modals/filter-modal';
 
 const LiveScreen = () => {
   const [selectedPlatform, setSelectedPlatform] = useState('all');
+  const [showFiltersModal, setShowFiltersModal] = useState(false);
 
   const handleChangePlatform = item => {
     setSelectedPlatform(item);
 
     // write logic to refetch all giveaway for the selected platform;
+  };
+
+  const toggleFilterModal = () => {
+    setShowFiltersModal(prev => !prev);
+  };
+
+  const handleHeaderActions = type => {
+    if (type === 'filter') {
+      toggleFilterModal();
+    }
   };
 
   return (
@@ -29,7 +41,7 @@ const LiveScreen = () => {
       <TopLRHeader
         title="Live Giveaway"
         type="live"
-        onAction={a => console.log(a)}
+        onAction={a => handleHeaderActions(a)}
       />
       {/* stats card */}
 
@@ -64,6 +76,8 @@ const LiveScreen = () => {
         <GiveAwayCard />
         <GiveAwayCard />
       </ScrollView>
+
+      <FilterModal show={showFiltersModal} onClose={toggleFilterModal} />
     </View>
   );
 };
