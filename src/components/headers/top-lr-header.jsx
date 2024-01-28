@@ -3,6 +3,7 @@ import { Header } from '@rneui/themed';
 import React from 'react';
 import { STATIC_DATA } from '@assets/constants';
 import appTheme from '@assets/constants/theme';
+import DynamicIcon from '@components/common/dynamic-icon';
 
 const TopLRHeader = props => {
   const { title = '', type, onAction } = props;
@@ -33,7 +34,11 @@ const TopLRHeader = props => {
                     color: appTheme.COLORS.appGray,
                   }}
                   onPress={() => onAction(option.name)}>
-                  {option.icon}
+                  <DynamicIcon
+                    name={option.icon}
+                    size={appTheme.SIZES['xxl']}
+                    color={appTheme.COLORS.white}
+                  />
                 </Pressable>
               );
             })}

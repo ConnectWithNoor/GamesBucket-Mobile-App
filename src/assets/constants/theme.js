@@ -9,6 +9,7 @@ export const COLORS = {
   appGreen: '#68686B',
   appLightGreen: '#ACACAC',
   appGray: '#8593A3',
+  appLightGray: '#B1B1B1',
   appTransparent: '#FFFFFF00',
 
   white: '#FFFFFF',
@@ -83,25 +84,21 @@ export const STYLES = {
     flexDirection: 'row',
     display: 'flex',
     justifyContent: 'flex-start',
-    width: '100%',
   },
   flexColStart: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    width: '100%',
   },
   flexColBetween: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    width: '100%',
   },
   flexRowBetween: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
   },
   flexRowCenter: {
     display: 'flex',
@@ -113,6 +110,42 @@ export const STYLES = {
   // spacing
   marginVerticalSm: {
     marginVertical: 14,
+  },
+
+  // formStyles
+
+  formLabel: {
+    fontFamily: FONTS.nm,
+    fontSize: SIZES.md,
+    color: COLORS.appLightGray,
+    marginBottom: 7,
+  },
+
+  // bottom sheet
+
+  bottomSheetBackdropStyle: {
+    backgroundColor: COLORS.black,
+    opacity: 0.4,
+  },
+
+  bottomSheetContainer: {
+    backgroundColor: COLORS.appSecondary,
+    maxHeight: SIZES.HEIGHT * 0.8,
+    marginTop: 'auto',
+    borderRadius: RADIUS['3xl'],
+    marginHorizontal: 10,
+    alignItems: 'flex-start',
+    padding: 20,
+  },
+
+  bottomSheetHeader: {
+    paddingBottom: SIZES.lg,
+    width: '100%',
+  },
+
+  bottomSheetTitle: {
+    color: COLORS.white,
+    fontSize: SIZES.lg,
   },
 };
 

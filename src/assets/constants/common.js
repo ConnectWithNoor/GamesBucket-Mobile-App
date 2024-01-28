@@ -1,11 +1,4 @@
-import {
-  Brodcast,
-  Game,
-  DiscountCircle,
-  Setting,
-  SearchNormal1,
-  Sort,
-} from 'iconsax-react-native';
+import { Brodcast, Game, DiscountCircle, Setting } from 'iconsax-react-native';
 import appTheme from './theme';
 import LiveScreen from '@screens/live/live-screen';
 import SettingsScreen from '@screens/settings/settings-screen';
@@ -76,19 +69,12 @@ const topHeaderData = [
     options: [
       {
         id: 1,
-        icon: (
-          <SearchNormal1
-            size={appTheme.SIZES['xxl']}
-            color={appTheme.COLORS.white}
-          />
-        ),
+        icon: 'SearchNormal1',
         name: 'search',
       },
       {
         id: 2,
-        icon: (
-          <Sort size={appTheme.SIZES['xxl']} color={appTheme.COLORS.white} />
-        ),
+        icon: 'Sort',
         name: 'filter',
       },
     ],
@@ -99,19 +85,12 @@ const topHeaderData = [
     options: [
       {
         id: 1,
-        icon: (
-          <SearchNormal1
-            size={appTheme.SIZES['xxl']}
-            color={appTheme.COLORS.white}
-          />
-        ),
+        icon: 'SearchNormal1',
         name: 'search',
       },
       {
         id: 2,
-        icon: (
-          <Sort size={appTheme.SIZES['xxl']} color={appTheme.COLORS.white} />
-        ),
+        icon: 'Sort',
         name: 'filter',
       },
     ],
@@ -145,10 +124,58 @@ const gamePlatformData = [
   },
 ];
 
+const giveawayType = [
+  {
+    id: 1,
+    key: 'game',
+    value: 'Game',
+  },
+  {
+    id: 2,
+    key: 'loot',
+    value: 'Loot',
+  },
+  {
+    id: 3,
+    key: 'beta',
+    value: 'Beta',
+  },
+  {
+    id: 4,
+    key: 'none',
+    value: 'None',
+  },
+];
+
+const giveawaySortBy = [
+  {
+    id: 1,
+    key: 'date',
+    value: 'Date',
+  },
+  {
+    id: 2,
+    key: 'value',
+    value: 'Value',
+  },
+  {
+    id: 3,
+    key: 'popularity',
+    value: 'Popularity',
+  },
+  {
+    id: 4,
+    key: 'none',
+    value: 'None',
+  },
+];
+
 const staticData = {
   bottomTabsList,
   topHeaderData,
   gamePlatformData,
+  giveawayType,
+  giveawaySortBy,
 };
 
 export default staticData;
