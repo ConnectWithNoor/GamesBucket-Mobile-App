@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 import TopLRHeader from '@components/headers/top-lr-header';
 import appTheme from '@assets/constants/theme';
-import { Gift, Tag } from 'iconsax-react-native';
 import StatsCard from '@components/cards/live-tab-cards/stats-card';
 import { STATIC_DATA } from '@assets/constants';
 import PlatformList from '@components/tabs/platform-list';
 import GiveAwayCard from '@components/cards/live-tab-cards/give-away-card';
 import FilterModal from '@components/modals/filter-modal';
+import DynamicIcon from '@components/common/dynamic-icon';
 
 const LiveScreen = () => {
   const [selectedPlatform, setSelectedPlatform] = useState('all');
@@ -47,12 +47,12 @@ const LiveScreen = () => {
 
       <View style={styles.statsContainer}>
         <StatsCard
-          icon={<Gift size="25" color="#FF8A65" />}
+          icon={<DynamicIcon name="Gift" color="#FF8A65" />}
           title="Total"
           value="$482.97"
         />
         <StatsCard
-          icon={<Tag size="25" color="#FF8A65" />}
+          icon={<DynamicIcon name="Tag" color="#FF8A65" />}
           title="Active"
           value="$117.00"
         />

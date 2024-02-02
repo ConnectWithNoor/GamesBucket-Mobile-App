@@ -5,6 +5,8 @@ import {
   SearchNormal1,
   Sort,
   ArrowDown2,
+  Gift,
+  Tag,
 } from 'iconsax-react-native';
 
 const iconComponent = {
@@ -12,6 +14,8 @@ const iconComponent = {
   SearchNormal1,
   Sort,
   ArrowDown2,
+  Gift,
+  Tag,
 };
 
 const DynamicIcon = props => {

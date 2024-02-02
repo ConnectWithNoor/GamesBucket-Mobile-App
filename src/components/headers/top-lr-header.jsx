@@ -17,7 +17,7 @@ const TopLRHeader = props => {
       backgroundColor={appTheme.COLORS.appPrimary}
       containerStyle={styles.headerContainer}
       leftComponent={{
-        text: title || '',
+        text: title,
         style: [
           appTheme.STYLES.headerTitle,
           { width: appTheme.SIZES.WIDTH - appTheme.SIZES.WIDTH / 3 },

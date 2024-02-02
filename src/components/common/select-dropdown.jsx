@@ -45,5 +45,9 @@ const styles = StyleSheet.create({
   selectContainerDropdown: {
     borderColor: '#404040',
     backgroundColor: '#2A3250',
+    position: 'absolute',
+    top: 40,
+    width: '100%',
+    zIndex: 1,
   },
 });

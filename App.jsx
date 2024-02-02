@@ -6,11 +6,12 @@
  */
 
 import React, { useEffect } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainStack from '@screens/stacks/main-stack';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,16 +21,20 @@ function App() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={'light-content'} backgroundColor={'#000123'} />
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Main"
-          screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Main" component={MainStack} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={styles.container}
+        edges={['right', 'left', 'bottom']}>
+        <StatusBar barStyle={'light-content'} backgroundColor={'#000123'} />
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Main"
+            screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Main" component={MainStack} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
