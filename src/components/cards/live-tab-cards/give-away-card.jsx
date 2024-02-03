@@ -8,6 +8,7 @@ import { dummyImage, epicGamesImage } from '@assets/constants/images';
 import AppCTA from '@components/buttons/app-cta';
 import StatusChip from '@components/tabs/status-chip';
 import appTheme from '@assets/constants/theme';
+import DynamicIcon from '@components/common/dynamic-icon';
 
 const GiveAwayCard = props => {
   const { data, onAction } = props;
@@ -39,8 +40,8 @@ const GiveAwayCard = props => {
                 styles.giveAwayCardBgBottomContainer,
               ]}>
               <View style={styles.overlayView} />
-              <Profile2User variant="Bold" size={25} color="#fff" />
-              <Text style={styles.giveAwayCardBgBottomText}>
+              <DynamicIcon name="Profile2User" variant="Bold" color="#fff" />
+              <Text style={styles.giveAwayCardBgBottomText} numberOfLines={1}>
                 14370+ users collected the loot
               </Text>
             </View>

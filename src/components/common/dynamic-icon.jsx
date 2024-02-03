@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import {
   CloseCircle,
@@ -7,6 +7,7 @@ import {
   ArrowDown2,
   Gift,
   Tag,
+  Profile2User,
 } from 'iconsax-react-native';
 
 const iconComponent = {
@@ -16,6 +17,7 @@ const iconComponent = {
   ArrowDown2,
   Gift,
   Tag,
+  Profile2User,
 };
 
 const DynamicIcon = props => {
