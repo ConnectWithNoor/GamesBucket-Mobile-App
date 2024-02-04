@@ -4,12 +4,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from 'react-native';
 import TopLRHeader from '@components/headers/top-lr-header';
 import appTheme from '@assets/constants/theme';
 import StatsCard from '@components/cards/live-tab-cards/stats-card';
 import { STATIC_DATA } from '@assets/constants';
+import { toastConfig } from '@assets/functions';
 import PlatformList from '@components/tabs/platform-list';
 import GiveAwayCard from '@components/cards/live-tab-cards/give-away-card';
 import FilterModal from '@components/modals/filter-modal';
@@ -17,12 +19,16 @@ import DynamicIcon from '@components/common/dynamic-icon';
 
 import { apiCall } from '@apis/index';
 import { ENDPOINTS } from '@apis/endpoints';
+import { showMessage } from 'react-native-flash-message';
+import { Divider } from '@rneui/themed';
 
 const LiveScreen = () => {
   const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [statsErrors, setStatsErrors] = useState(null);
   const [stats, setStats] = useState(null);
+  const [scrollY, setScrollY] = useState(0);
+  const [gameData, setGameData] = useState([{ id: 1 }, { id: 1 }]);
 
   const fetchTotalGiveaway = async () => {
     const { rawData, hasError, error } = await apiCall(
@@ -32,12 +38,22 @@ const LiveScreen = () => {
 
     if (hasError) {
       console.log('Error', error);
+      showMessage({
+        message: 'Stats Error',
+        description: error,
+        ...toastConfig('danger'),
+      });
       setStatsErrors(error);
       return;
     }
 
-    console.log('data', rawData);
     setStats(rawData);
+  };
+
+  const handleScrollY = event => {
+    if (gameData.length > 1) {
+      setScrollY(event.nativeEvent.contentOffset.y);
+    }
   };
 
   const handleChangePlatform = item => {
@@ -70,7 +86,7 @@ const LiveScreen = () => {
       />
       {/* stats card */}
 
-      {!statsErrors && stats && (
+      {!statsErrors && stats && scrollY < 150 && (
         <View style={styles.statsContainer}>
           <StatsCard
             icon={<DynamicIcon name="Gift" color="#FF8A65" />}
@@ -85,6 +101,8 @@ const LiveScreen = () => {
         </View>
       )}
 
+      {scrollY > 150 && <Divider />}
+
       {/* Platform List */}
       <View>
         <PlatformList
@@ -98,7 +116,8 @@ const LiveScreen = () => {
       <ScrollView
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
-        contentInsetAdjustmentBehavior="automatic">
+        contentInsetAdjustmentBehavior="automatic"
+        onScroll={handleScrollY}>
         <GiveAwayCard onAction={val => console.log(val)} />
         <GiveAwayCard />
         <GiveAwayCard />

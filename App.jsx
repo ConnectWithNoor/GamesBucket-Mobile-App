@@ -5,17 +5,20 @@
  * @format
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainStack from '@screens/stacks/main-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import FlashMessage from 'react-native-flash-message';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const flashMessageRef = useRef(null);
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -33,6 +36,8 @@ function App() {
             <Stack.Screen name="Main" component={MainStack} />
           </Stack.Navigator>
         </NavigationContainer>
+
+        <FlashMessage ref={flashMessageRef} position={'top'} floating={true} />
       </SafeAreaView>
     </SafeAreaProvider>
   );
