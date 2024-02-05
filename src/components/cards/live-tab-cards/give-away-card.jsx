@@ -23,7 +23,6 @@ const GiveAwayCard = props => {
       />
     );
   }, []);
-  console.log('render card');
 
   return (
     <View>
