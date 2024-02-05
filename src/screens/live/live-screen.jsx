@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  ToastAndroid,
-  View,
-} from 'react-native';
+import React, { useMemo, useEffect, useState, useCallback } from 'react';
+import { FlatList, ScrollView, StyleSheet, View, Animated } from 'react-native';
+import debounce from 'lodash.debounce';
 import TopLRHeader from '@components/headers/top-lr-header';
 import appTheme from '@assets/constants/theme';
 import StatsCard from '@components/cards/live-tab-cards/stats-card';
@@ -21,6 +15,9 @@ import { apiCall } from '@apis/index';
 import { ENDPOINTS } from '@apis/endpoints';
 import { showMessage } from 'react-native-flash-message';
 import { Divider } from '@rneui/themed';
+import { FlashList } from '@shopify/flash-list';
+
+const ITEM_HEIGHT = 480;
 
 const LiveScreen = () => {
   const [selectedPlatform, setSelectedPlatform] = useState('all');
@@ -28,7 +25,7 @@ const LiveScreen = () => {
   const [statsErrors, setStatsErrors] = useState(null);
   const [stats, setStats] = useState(null);
   const [scrollY, setScrollY] = useState(0);
-  const [gameData, setGameData] = useState([{ id: 1 }, { id: 1 }]);
+  const [gameData, setGameData] = useState([]);
 
   const fetchTotalGiveaway = async () => {
     const { rawData, hasError, error } = await apiCall(
@@ -49,19 +46,42 @@ const LiveScreen = () => {
 
     setStats(rawData);
   };
+  const fetchGiveawayList = async () => {
+    const { rawData, hasError, error } = await apiCall(
+      'GET',
+      ENDPOINTS.GIVEAWAY_LIST,
+    );
 
-  const handleScrollY = event => {
-    if (gameData.length > 1) {
-      setScrollY(event.nativeEvent.contentOffset.y);
+    if (hasError) {
+      showMessage({
+        message: 'Error!',
+        description: error,
+        ...toastConfig('danger'),
+      });
+      return;
     }
+    setGameData(rawData);
   };
+
+  const handleScrollY = useCallback(
+    event => {
+      if (gameData.length > 1) {
+        setScrollY(event.nativeEvent.contentOffset.y);
+      }
+    },
+    [gameData.length], // no dependencies, so the function doesn't change
+  );
+
+  const debouncedHandleScrollY = useMemo(
+    () => debounce(handleScrollY, 150),
+    [handleScrollY],
+  );
 
   const handleChangePlatform = item => {
     setSelectedPlatform(item);
 
     // write logic to refetch all giveaway for the selected platform;
   };
-
   const toggleFilterModal = () => {
     setShowFiltersModal(prev => !prev);
   };
@@ -72,8 +92,20 @@ const LiveScreen = () => {
     }
   };
 
+  const memorizedOnAction = useCallback(param => console.log(param), []);
+
+  const renderItem = useCallback(
+    ({ item }) => (
+      <GiveAwayCard key={item.id} data={item} onAction={memorizedOnAction} />
+    ),
+    [],
+  );
+
   useEffect(() => {
     fetchTotalGiveaway();
+    fetchGiveawayList();
+
+    return () => debouncedHandleScrollY.cancel();
   }, []);
 
   return (
@@ -112,16 +144,27 @@ const LiveScreen = () => {
         />
       </View>
 
-      {/* Card */}
-      <ScrollView
-        scrollEnabled={true}
-        showsVerticalScrollIndicator={false}
-        contentInsetAdjustmentBehavior="automatic"
-        onScroll={handleScrollY}>
-        <GiveAwayCard onAction={val => console.log(val)} />
-        <GiveAwayCard />
-        <GiveAwayCard />
-      </ScrollView>
+      {/* Cards List */}
+
+      <FlatList
+        data={gameData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        contentContainerStyle={{ paddingBottom: 30 }}
+        maxToRenderPerBatch={4}
+        initialNumToRender={4}
+        windowSize={31}
+        getItemLayout={(_, index) => ({
+          length: ITEM_HEIGHT,
+          offset: ITEM_HEIGHT * index,
+          index,
+        })}
+        onScroll={event => {
+          event.persist(); // Persist the synthetic event
+          debouncedHandleScrollY(event);
+        }}
+        scrollEventThrottle={16}
+      />
 
       <FilterModal show={showFiltersModal} onClose={toggleFilterModal} />
     </View>

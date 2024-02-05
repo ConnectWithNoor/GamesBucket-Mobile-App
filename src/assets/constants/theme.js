@@ -147,6 +147,15 @@ export const STYLES = {
     color: COLORS.white,
     fontSize: SIZES.lg,
   },
+
+  // global styles
+  offerPrice: {
+    fontFamily: FONTS.nm,
+    fontSize: SIZES.md,
+    color: COLORS.appLightGray,
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+  },
 };
 
 const appTheme = {

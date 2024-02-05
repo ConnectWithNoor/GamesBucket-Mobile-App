@@ -1,25 +1,42 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-
-import { Profile2User } from 'iconsax-react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, memo } from 'react';
 
 import { Card, Chip, Image } from '@rneui/themed';
-import { dummyImage, epicGamesImage } from '@assets/constants/images';
+import { epicGamesImage } from '@assets/constants/images';
 import AppCTA from '@components/buttons/app-cta';
 import StatusChip from '@components/tabs/status-chip';
 import appTheme from '@assets/constants/theme';
 import DynamicIcon from '@components/common/dynamic-icon';
+import { APP_THEME } from '@assets/constants';
+import moment from 'moment';
+import FastImage from 'react-native-fast-image';
 
 const GiveAwayCard = props => {
   const { data, onAction } = props;
+
+  const supportedPlatforms = useCallback(platform => {
+    return (
+      <Image
+        source={epicGamesImage}
+        style={styles.giveawayCardbgImageIcon}
+        resizeMode="cover"
+      />
+    );
+  }, []);
+  console.log('render card');
+
   return (
     <View>
       <Card containerStyle={styles.cardContainerStyles}>
         {/* Bg Image */}
-        <ImageBackground
-          source={dummyImage}
+        <FastImage
+          source={{
+            uri: data?.thumbnail,
+            headers: { Authorization: 'someAuthToken' },
+            priority: FastImage.priority.normal,
+          }}
           style={styles.giveAwayCardImage}
-          resizeMode={'cover'}>
+          resizeMode={FastImage.resizeMode.cover}>
           <View style={styles.bgOverlay} />
           <View
             style={[
@@ -27,12 +44,10 @@ const GiveAwayCard = props => {
               { height: 200, padding: 15 },
             ]}>
             <View style={appTheme.STYLES.flexRowBetween}>
-              <StatusChip title="Active" />
-              <Image
-                source={epicGamesImage}
-                style={styles.giveawayCardbgImageIcon}
-                resizeMode="cover"
-              />
+              <StatusChip title={data?.status || 'Not available'} />
+              <View style={[APP_THEME.flexRowStart, { gap: 4 }]}>
+                {supportedPlatforms(data.platforms)}
+              </View>
             </View>
             <View
               style={[
@@ -42,47 +57,60 @@ const GiveAwayCard = props => {
               <View style={styles.overlayView} />
               <DynamicIcon name="Profile2User" variant="Bold" color="#fff" />
               <Text style={styles.giveAwayCardBgBottomText} numberOfLines={1}>
-                14370+ users collected the loot
+                {data?.users}+ users collected the loot
               </Text>
             </View>
           </View>
-        </ImageBackground>
+        </FastImage>
 
         {/* Card Content */}
         <View style={styles.giveAwayCardContent}>
-          {/* Card Chips */}
-          <View style={[appTheme.STYLES.flexRowStart, { gap: 6 }]}>
-            <Chip
-              buttonStyle={styles.giveAwayCardChip}
-              titleStyle={styles.giveAwayCardChipTitle}
-              title="Pc Game"
-            />
-            <Chip
-              buttonStyle={styles.giveAwayCardChip}
-              titleStyle={styles.giveAwayCardChipTitle}
-              title="FREE"
-            />
+          <View style={[APP_THEME.STYLES.flexRowBetween]}>
+            <View style={[APP_THEME.STYLES.flexRowStart, { gap: 8 }]}>
+              <Chip
+                buttonStyle={styles.giveAwayCardChip}
+                titleStyle={styles.giveAwayCardChipTitle}
+                title={data?.type || 'Game'}
+              />
+              <Chip
+                buttonStyle={styles.giveAwayCardChip}
+                titleStyle={styles.giveAwayCardChipTitle}
+                title={'Free'}
+              />
+            </View>
+
+            {data?.worth && data.worth !== 'N/A' && (
+              <Text style={APP_THEME.STYLES.offerPrice}>{data?.worth}</Text>
+            )}
           </View>
+          {/* Card Chips */}
+          <View style={[APP_THEME.STYLES.flexRowStart, { gap: 6 }]}></View>
 
           {/* Card Titles */}
           <View
             style={[
-              appTheme.STYLES.marginVerticalSm,
-              appTheme.STYLES.flexColStart,
+              APP_THEME.STYLES.marginVerticalSm,
+              APP_THEME.STYLES.flexColStart,
               { gap: 10 },
             ]}>
             <Text style={styles.giveAwayCardTitle} numberOfLines={1}>
-              FIFA 22 (Epic Games) Giveaway
+              {data?.title || 'Giveaway Game'}
             </Text>
 
             <Text style={styles.giveAwayCardTime} numberOfLines={1}>
-              Live Now - Jun 08 at 08:30 PM
+              {moment(data?.published_date).format('MMM DD, YY | h:mm')}{' '}
+              {data?.end_date !== 'N/A'
+                ? `- ${moment(data.end_date).format('MMM DD, YY | h:mm')}`
+                : ''}
             </Text>
           </View>
 
           {/* CTA button */}
           <View style={{ marginTop: 14 }}>
-            <AppCTA title="View Game" onAction={() => onAction('clicked')} />
+            <AppCTA
+              title={`View ${data?.type}`}
+              onAction={() => onAction('clicked')}
+            />
           </View>
         </View>
       </Card>
@@ -90,7 +118,9 @@ const GiveAwayCard = props => {
   );
 };
 
-export default GiveAwayCard;
+export default memo(GiveAwayCard, (prevProps, nextProps) => {
+  return true;
+});
 
 const styles = StyleSheet.create({
   cardContainerStyles: {
@@ -150,7 +180,7 @@ const styles = StyleSheet.create({
   },
   bgOverlay: {
     position: 'absolute',
-    backgroundColor: 'rgba(160, 160, 160, 0.4)',
+    backgroundColor: 'rgba(160, 160, 160, 0.1)',
     width: '100%',
     height: '100%',
   },
