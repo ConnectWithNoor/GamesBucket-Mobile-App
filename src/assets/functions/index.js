@@ -1,3 +1,5 @@
+import { STATIC_DATA } from '@assets/constants';
+
 const toastConfig = type => {
   if (type === 'danger') {
     return {
@@ -18,4 +20,10 @@ const toastConfig = type => {
   }
 };
 
-export { toastConfig };
+const getInfoMessage = type => {
+  const findMessage = STATIC_DATA.infoMessage.find(item => item.type === type);
+
+  return findMessage;
+};
+
+export { toastConfig, getInfoMessage };

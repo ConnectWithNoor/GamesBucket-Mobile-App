@@ -10,7 +10,6 @@ const StatsCard = props => {
       <View style={styles.iconContainer}>{Icon}</View>
 
       {/* text */}
-
       <View>
         <Text style={styles.statsTitle}>{title}</Text>
         <Text style={styles.statsValue}>{value}</Text>

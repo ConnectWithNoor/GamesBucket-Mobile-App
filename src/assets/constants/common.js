@@ -2,6 +2,7 @@ import { Brodcast, Game, DiscountCircle, Setting } from 'iconsax-react-native';
 import appTheme from './theme';
 import LiveScreen from '@screens/live/live-screen';
 import SettingsScreen from '@screens/settings/settings-screen';
+import { loader, notFound } from './animation';
 
 const bottomTabsList = [
   {
@@ -170,12 +171,36 @@ const giveawaySortBy = [
   },
 ];
 
+const infoMessage = [
+  {
+    id: '1',
+    type: 'no_matched_data',
+    title: 'Oops! No matched data found!',
+    message: 'Please try again with different query',
+    animFile: notFound,
+  },
+  {
+    id: '2',
+    type: 'no_data',
+    title: 'Oops! No data available!',
+    message: 'Please try again after sometime',
+    animFile: notFound,
+  },
+  {
+    id: '3',
+    type: 'loading',
+    title: 'Please wait...',
+    animFile: loader,
+  },
+];
+
 const staticData = {
   bottomTabsList,
   topHeaderData,
   gamePlatformData,
   giveawayType,
   giveawaySortBy,
+  infoMessage,
 };
 
 export default staticData;

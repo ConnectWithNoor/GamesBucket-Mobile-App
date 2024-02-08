@@ -1,5 +1,5 @@
 import { StyleSheet, View, FlatList } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { Chip } from '@rneui/themed';
 import appTheme from '@assets/constants/theme';
 
@@ -38,7 +38,11 @@ const PlatformList = props => {
   );
 };
 
-export default PlatformList;
+export default memo(
+  PlatformList,
+  (prevProps, nextProps) =>
+    prevProps.selectedCatefory === nextProps.selectedCatefory,
+);
 
 const styles = StyleSheet.create({
   platformChip: {

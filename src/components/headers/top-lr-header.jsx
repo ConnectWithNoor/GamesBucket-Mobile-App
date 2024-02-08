@@ -1,54 +1,67 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Header } from '@rneui/themed';
-import React from 'react';
+import { Header, LinearProgress, Text } from '@rneui/themed';
+import React, { memo } from 'react';
 import { STATIC_DATA } from '@assets/constants';
 import appTheme from '@assets/constants/theme';
 import DynamicIcon from '@components/common/dynamic-icon';
 
 const TopLRHeader = props => {
-  const { title = '', type, onAction } = props;
+  const { title = '', type, onAction, isLoading } = props;
 
   const rightOptions = STATIC_DATA.topHeaderData.filter(
     item => item.type === type,
   )[0];
 
   return (
-    <Header
-      backgroundColor={appTheme.COLORS.appPrimary}
-      containerStyle={styles.headerContainer}
-      leftComponent={{
-        text: title,
-        style: [
-          appTheme.STYLES.headerTitle,
-          { width: appTheme.SIZES.WIDTH - appTheme.SIZES.WIDTH / 3 },
-        ],
-      }}
-      rightComponent={
-        <View style={styles.headerRight}>
-          {rightOptions &&
-            rightOptions.options.map(option => {
-              return (
-                <Pressable
-                  key={option.id}
-                  android_ripple={{
-                    color: appTheme.COLORS.appGray,
-                  }}
-                  onPress={() => onAction(option.name)}>
-                  <DynamicIcon
-                    name={option.icon}
-                    size={appTheme.SIZES['xxl']}
-                    color={appTheme.COLORS.white}
-                  />
-                </Pressable>
-              );
-            })}
-        </View>
-      }
-    />
+    <View>
+      <Header
+        backgroundColor={appTheme.COLORS.appPrimary}
+        containerStyle={styles.headerContainer}
+        leftComponent={{
+          text: title,
+          style: [
+            appTheme.STYLES.headerTitle,
+            { width: appTheme.SIZES.WIDTH - appTheme.SIZES.WIDTH / 3 },
+          ],
+        }}
+        rightComponent={
+          <View style={styles.headerRight}>
+            {rightOptions &&
+              rightOptions.options.map(option => {
+                return (
+                  <Pressable
+                    key={option.id}
+                    android_ripple={{
+                      color: appTheme.COLORS.appGray,
+                    }}
+                    onPress={() => onAction(option.name)}>
+                    <DynamicIcon
+                      name={option.icon}
+                      size={appTheme.SIZES['xxl']}
+                      color={appTheme.COLORS.white}
+                    />
+                  </Pressable>
+                );
+              })}
+          </View>
+        }
+      />
+
+      {isLoading && (
+        <LinearProgress
+          variant="indeterminate"
+          color={appTheme.COLORS.white}
+          trackColor={appTheme.COLORS.appPrimary}
+          style={{ marginTop: -4 }}
+        />
+      )}
+    </View>
   );
 };
 
-export default TopLRHeader;
+export default memo(TopLRHeader, (prevProps, nextProps) => {
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps);
+});
 
 const styles = StyleSheet.create({
   headerContainer: {

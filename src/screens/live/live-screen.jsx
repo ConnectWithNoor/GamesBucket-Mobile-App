@@ -1,11 +1,11 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react';
-import { FlatList, ScrollView, StyleSheet, View, Animated } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import debounce from 'lodash.debounce';
 import TopLRHeader from '@components/headers/top-lr-header';
 import appTheme from '@assets/constants/theme';
 import StatsCard from '@components/cards/live-tab-cards/stats-card';
 import { STATIC_DATA } from '@assets/constants';
-import { toastConfig } from '@assets/functions';
+import { getInfoMessage, toastConfig } from '@assets/functions';
 import PlatformList from '@components/tabs/platform-list';
 import GiveAwayCard from '@components/cards/live-tab-cards/give-away-card';
 import FilterModal from '@components/modals/filter-modal';
@@ -15,7 +15,7 @@ import { apiCall } from '@apis/index';
 import { ENDPOINTS } from '@apis/endpoints';
 import { showMessage } from 'react-native-flash-message';
 import { Divider } from '@rneui/themed';
-import { FlashList } from '@shopify/flash-list';
+import CustomAnimation from '@components/common/custom-animation';
 
 const ITEM_HEIGHT = 480;
 
@@ -26,8 +26,10 @@ const LiveScreen = () => {
   const [stats, setStats] = useState(null);
   const [scrollY, setScrollY] = useState(0);
   const [gameData, setGameData] = useState([]);
+  const [messageData, setMessageData] = useState(getInfoMessage('loading'));
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchTotalGiveaway = async () => {
+  const fetchTotalGiveaway = useCallback(async () => {
     const { rawData, hasError, error } = await apiCall(
       'GET',
       ENDPOINTS.TOTAL_GIVEAWAY,
@@ -45,11 +47,22 @@ const LiveScreen = () => {
     }
 
     setStats(rawData);
-  };
-  const fetchGiveawayList = async () => {
+  }, []);
+
+  const fetchGiveawayList = useCallback(async platform => {
+    let params = { platform: null };
+    if (platform !== '' && platform !== 'all') {
+      params = { platform };
+    }
+
+    setMessageData(getInfoMessage('loading'));
+    setGameData([]);
+    setIsLoading(true);
+
     const { rawData, hasError, error } = await apiCall(
       'GET',
       ENDPOINTS.GIVEAWAY_LIST,
+      { params },
     );
 
     if (hasError) {
@@ -58,10 +71,19 @@ const LiveScreen = () => {
         description: error,
         ...toastConfig('danger'),
       });
+      setGameData([]);
+      setMessageData(getInfoMessage('no_data'));
       return;
     }
-    setGameData(rawData);
-  };
+    if (rawData.length > 1) {
+      setGameData(rawData);
+    } else {
+      setGameData([]);
+      setMessageData(getInfoMessage('no_data'));
+    }
+
+    setIsLoading(false);
+  }, []);
 
   const handleScrollY = useCallback(
     event => {
@@ -101,9 +123,16 @@ const LiveScreen = () => {
     [],
   );
 
+  const EmptyList = useMemo(() => {
+    return <CustomAnimation data={messageData} style={{ minHeight: 200 }} />;
+  }, [messageData]);
+
+  useEffect(() => {
+    fetchGiveawayList(selectedPlatform);
+  }, [selectedPlatform]);
+
   useEffect(() => {
     fetchTotalGiveaway();
-    fetchGiveawayList();
 
     return () => debouncedHandleScrollY.cancel();
   }, []);
@@ -115,6 +144,7 @@ const LiveScreen = () => {
         title="Live Giveaway"
         type="live"
         onAction={a => handleHeaderActions(a)}
+        isLoading={isLoading}
       />
       {/* stats card */}
 
@@ -164,6 +194,7 @@ const LiveScreen = () => {
           debouncedHandleScrollY(event);
         }}
         scrollEventThrottle={16}
+        ListEmptyComponent={EmptyList}
       />
 
       <FilterModal show={showFiltersModal} onClose={toggleFilterModal} />
