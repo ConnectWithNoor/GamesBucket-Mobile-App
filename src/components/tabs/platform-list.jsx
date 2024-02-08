@@ -4,9 +4,9 @@ import { Chip } from '@rneui/themed';
 import appTheme from '@assets/constants/theme';
 
 const PlatformList = props => {
-  const { categories, onAction, selectedCatefory } = props;
+  const { categories, onAction, selectedCategory } = props;
   const renderPlatforms = ({ item }) => {
-    const isSelected = selectedCatefory === item.name;
+    const isSelected = selectedCategory === item.name;
     return (
       <Chip
         title={item.name}
@@ -41,7 +41,7 @@ const PlatformList = props => {
 export default memo(
   PlatformList,
   (prevProps, nextProps) =>
-    prevProps.selectedCatefory === nextProps.selectedCatefory,
+    prevProps.selectedCategory === nextProps.selectedCategory,
 );
 
 const styles = StyleSheet.create({

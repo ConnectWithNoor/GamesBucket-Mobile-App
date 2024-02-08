@@ -1,11 +1,11 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import debounce from 'lodash.debounce';
 import TopLRHeader from '@components/headers/top-lr-header';
 import appTheme from '@assets/constants/theme';
 import StatsCard from '@components/cards/live-tab-cards/stats-card';
 import { STATIC_DATA } from '@assets/constants';
-import { getInfoMessage, toastConfig } from '@assets/functions';
+import { getInfoMessage, toastConfig, wait } from '@assets/functions';
 import PlatformList from '@components/tabs/platform-list';
 import GiveAwayCard from '@components/cards/live-tab-cards/give-away-card';
 import FilterModal from '@components/modals/filter-modal';
@@ -28,6 +28,20 @@ const LiveScreen = () => {
   const [gameData, setGameData] = useState([]);
   const [messageData, setMessageData] = useState(getInfoMessage('loading'));
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState({
+    'sort-by': STATIC_DATA.giveawayType[3].key,
+    type: STATIC_DATA.giveawayType[3].key,
+  });
+
+  const handleFilters = useCallback(
+    (filters, value) => {
+      setSelectedFilters(value);
+      fetchGiveawayList(selectedPlatform, filters);
+      toggleFilterModal();
+    },
+    [selectedPlatform],
+  );
 
   const fetchTotalGiveaway = useCallback(async () => {
     const { rawData, hasError, error } = await apiCall(
@@ -49,12 +63,13 @@ const LiveScreen = () => {
     setStats(rawData);
   }, []);
 
-  const fetchGiveawayList = useCallback(async platform => {
-    let params = { platform: null };
+  const fetchGiveawayList = useCallback(async (platform, filters) => {
+    let params = {
+      ...filters,
+    };
     if (platform !== '' && platform !== 'all') {
-      params = { platform };
+      params = { platform, ...params };
     }
-
     setMessageData(getInfoMessage('loading'));
     setGameData([]);
     setIsLoading(true);
@@ -73,6 +88,7 @@ const LiveScreen = () => {
       });
       setGameData([]);
       setMessageData(getInfoMessage('no_data'));
+      setIsLoading(false);
       return;
     }
     if (rawData.length > 1) {
@@ -123,12 +139,26 @@ const LiveScreen = () => {
     [],
   );
 
+  const onRefresh = useCallback(() => {
+    fetchTotalGiveaway();
+    fetchGiveawayList(selectedPlatform);
+    setSelectedFilters({
+      'sort-by': STATIC_DATA.giveawayType[3].key,
+      type: STATIC_DATA.giveawayType[3].key,
+    });
+    wait(1000).then(() => setIsRefreshing(false));
+  }, [selectedPlatform]);
+
   const EmptyList = useMemo(() => {
     return <CustomAnimation data={messageData} style={{ minHeight: 200 }} />;
   }, [messageData]);
 
   useEffect(() => {
-    fetchGiveawayList(selectedPlatform);
+    setSelectedFilters({
+      'sort-by': STATIC_DATA.giveawayType[3].key,
+      type: STATIC_DATA.giveawayType[3].key,
+    });
+    fetchGiveawayList(selectedPlatform, {});
   }, [selectedPlatform]);
 
   useEffect(() => {
@@ -170,7 +200,7 @@ const LiveScreen = () => {
         <PlatformList
           categories={STATIC_DATA.gamePlatformData}
           onAction={val => setSelectedPlatform(val)}
-          selectedCatefory={selectedPlatform}
+          selectedCategory={selectedPlatform}
         />
       </View>
 
@@ -195,9 +225,16 @@ const LiveScreen = () => {
         }}
         scrollEventThrottle={16}
         ListEmptyComponent={EmptyList}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+        }
       />
-
-      <FilterModal show={showFiltersModal} onClose={toggleFilterModal} />
+      <FilterModal
+        show={showFiltersModal}
+        onClose={toggleFilterModal}
+        onAction={(filters, value) => handleFilters(filters, value)}
+        selectedFilters={selectedFilters}
+      />
     </View>
   );
 };

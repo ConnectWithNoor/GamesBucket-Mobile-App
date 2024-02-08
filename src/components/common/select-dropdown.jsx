@@ -11,19 +11,27 @@ const SelectDropdown = props => {
     list,
     placeholder = 'Select a value',
     icon,
+    value,
   } = props;
+
+  const handleSelection = val => {
+    const selectedItem = list.find(item => item.key === val);
+    onSelected(selectedItem);
+  };
+
   return (
     <View>
       <Text style={appTheme.STYLES.formLabel}>{label}</Text>
       <SelectList
         data={list}
-        setSelected={val => onSelected(val)}
+        setSelected={val => handleSelection(val)}
         placeholder={placeholder}
         fontFamily={appTheme.FONTS.nm}
         boxStyles={styles.selectContainer}
         inputStyles={styles.selectContainerInput}
         dropdownStyles={styles.selectContainerDropdown}
         dropdownTextStyles={styles.selectContainerInput}
+        defaultOption={value}
         save="key"
         search={false}
         arrowicon={<DynamicIcon name={icon} color={appTheme.COLORS.appGray} />}

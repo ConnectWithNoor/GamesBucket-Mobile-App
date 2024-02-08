@@ -26,4 +26,8 @@ const getInfoMessage = type => {
   return findMessage;
 };
 
-export { toastConfig, getInfoMessage };
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
+export { toastConfig, getInfoMessage, wait };
