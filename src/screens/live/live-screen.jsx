@@ -19,7 +19,8 @@ import CustomAnimation from '@components/common/custom-animation';
 
 const ITEM_HEIGHT = 480;
 
-const LiveScreen = () => {
+const LiveScreen = props => {
+  const { navigation } = props;
   const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [statsErrors, setStatsErrors] = useState(null);
@@ -130,11 +131,18 @@ const LiveScreen = () => {
     }
   };
 
-  const memorizedOnAction = useCallback(param => console.log(param), []);
+  const memorizedOnAction = useCallback(
+    item => navigation.navigate('GiveawayDetails', { gameData: item }),
+    [],
+  );
 
   const renderItem = useCallback(
     ({ item }) => (
-      <GiveAwayCard key={item.id} data={item} onAction={memorizedOnAction} />
+      <GiveAwayCard
+        key={item.id}
+        data={item}
+        onAction={() => memorizedOnAction(item)}
+      />
     ),
     [],
   );
@@ -170,12 +178,14 @@ const LiveScreen = () => {
   return (
     <View style={appTheme.STYLES.container}>
       {/* top header */}
+
       <TopLRHeader
         title="Live Giveaway"
         type="live"
         onAction={a => handleHeaderActions(a)}
         isLoading={isLoading}
       />
+
       {/* stats card */}
 
       {!statsErrors && stats && scrollY < 150 && (

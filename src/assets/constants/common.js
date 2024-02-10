@@ -1,7 +1,7 @@
 import { Brodcast, Game, DiscountCircle, Setting } from 'iconsax-react-native';
 import appTheme from './theme';
 import LiveScreen from '@screens/live/live-screen';
-import SettingsScreen from '@screens/settings/settings-screen';
+import SettingsScreen from '@screens/settings/bookmark-screen';
 import { loader, notFound } from './animation';
 
 const bottomTabsList = [
@@ -194,6 +194,44 @@ const infoMessage = [
   },
 ];
 
+const giveAwaySpecs = [
+  {
+    id: 1,
+    title: 'Worth',
+    slug: 'worth',
+  },
+  {
+    id: 2,
+    title: 'Platforms',
+    slug: 'platforms',
+  },
+  {
+    id: 3,
+    title: 'Game Type',
+    slug: 'type',
+  },
+  {
+    id: 4,
+    title: 'Users',
+    slug: 'sers',
+  },
+  {
+    id: 5,
+    title: 'Published Date',
+    slug: 'published_date',
+  },
+  {
+    id: 6,
+    title: 'End Date',
+    slug: 'worth',
+  },
+  {
+    id: 7,
+    title: 'Current Status',
+    slug: 'status',
+  },
+];
+
 const staticData = {
   bottomTabsList,
   topHeaderData,
@@ -201,6 +239,7 @@ const staticData = {
   giveawayType,
   giveawaySortBy,
   infoMessage,
+  giveAwaySpecs,
 };
 
 export default staticData;

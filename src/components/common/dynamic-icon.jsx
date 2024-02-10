@@ -8,6 +8,8 @@ import {
   Gift,
   Tag,
   Profile2User,
+  ArchiveAdd,
+  ArrowLeft,
 } from 'iconsax-react-native';
 
 const iconComponent = {
@@ -18,6 +20,8 @@ const iconComponent = {
   Gift,
   Tag,
   Profile2User,
+  ArchiveAdd,
+  ArrowLeft,
 };
 
 const DynamicIcon = props => {

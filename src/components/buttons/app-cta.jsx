@@ -4,13 +4,21 @@ import { Button } from '@rneui/themed';
 import appTheme from '@assets/constants/theme';
 
 const AppCTA = props => {
-  const { title = '', onAction, customStyle, size = 'lg', ...rest } = props;
+  const {
+    title = '',
+    onAction,
+    disabled = false,
+    customStyle,
+    size = 'lg',
+    ...rest
+  } = props;
   return (
     <Button
       titleStyle={styles.appCtaTitle}
       buttonStyle={[styles.appCta, customStyle]}
       onPress={val => onAction(val)}
       size={size}
+      disabled={disabled}
       {...rest}>
       {title}
     </Button>

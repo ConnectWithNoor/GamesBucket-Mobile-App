@@ -30,4 +30,13 @@ const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
-export { toastConfig, getInfoMessage, wait };
+const formatText = text => {
+  const formattedText = text
+    .replace(/"/g, '')
+    .split(/\d+\./)
+    .filter(instruction => instruction.trim() !== '');
+
+  return formattedText;
+};
+
+export { toastConfig, getInfoMessage, wait, formatText };

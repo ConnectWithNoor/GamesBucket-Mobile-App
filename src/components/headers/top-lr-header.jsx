@@ -1,12 +1,12 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Header, LinearProgress, Text } from '@rneui/themed';
+import { Header, LinearProgress } from '@rneui/themed';
 import React, { memo } from 'react';
 import { STATIC_DATA } from '@assets/constants';
 import appTheme from '@assets/constants/theme';
 import DynamicIcon from '@components/common/dynamic-icon';
 
 const TopLRHeader = props => {
-  const { title = '', type, onAction, isLoading } = props;
+  const { title = '', type, onAction, isLoading = false } = props;
 
   const rightOptions = STATIC_DATA.topHeaderData.filter(
     item => item.type === type,
@@ -48,12 +48,18 @@ const TopLRHeader = props => {
       />
 
       {isLoading && (
-        <LinearProgress
-          variant="indeterminate"
-          color={appTheme.COLORS.white}
-          trackColor={appTheme.COLORS.appPrimary}
-          style={{ marginTop: -4 }}
-        />
+        <View style={styles.progressContainer}>
+          <LinearProgress
+            variant="indeterminate"
+            color={appTheme.COLORS.white}
+            trackColor={appTheme.COLORS.appPrimary}
+            style={{
+              marginTop: -4,
+              width: '100%',
+              justifyContent: 'flex-start',
+            }}
+          />
+        </View>
       )}
     </View>
   );
@@ -78,5 +84,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: appTheme.SIZES.lg,
+  },
+  progressContainer: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });

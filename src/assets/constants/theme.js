@@ -72,6 +72,12 @@ export const STYLES = {
     color: COLORS.white,
   },
 
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   // typography styles
   headerTitle: {
     fontSize: SIZES.xxl,
