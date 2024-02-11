@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import React from 'react';
+
 import {
   CloseCircle,
   SearchNormal1,
@@ -10,7 +11,13 @@ import {
   Profile2User,
   ArchiveAdd,
   ArrowLeft,
+  Menu,
+  Copy,
+  PenAdd,
+  PenRemove,
+  RulerPen,
 } from 'iconsax-react-native';
+import appTheme from '@assets/constants/theme';
 
 const iconComponent = {
   CloseCircle,
@@ -22,6 +29,11 @@ const iconComponent = {
   Profile2User,
   ArchiveAdd,
   ArrowLeft,
+  Menu,
+  Copy,
+  PenAdd,
+  PenRemove,
+  RulerPen,
 };
 
 const DynamicIcon = props => {
@@ -31,7 +43,13 @@ const DynamicIcon = props => {
 
   if (!IconComponent) return null;
 
-  return <IconComponent size={size} color={color} {...rest} />;
+  return (
+    <IconComponent
+      size={size}
+      color={color || appTheme.COLORS.white}
+      {...rest}
+    />
+  );
 };
 
 export default DynamicIcon;

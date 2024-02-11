@@ -56,12 +56,15 @@ const GiveawayDetails = props => {
     setisLoading(false);
   }, []);
 
-  const handleOpenGiveaway = useCallback(item => {
-    navigation.navigate('WebViewScreen', {
-      webURL: item?.open_giveaway_url,
-      title: data?.title,
-    });
-  }, []);
+  const handleOpenGiveaway = useCallback(
+    item => {
+      navigation.navigate('WebViewScreen', {
+        webURL: item?.open_giveaway_url,
+        title: data?.title,
+      });
+    },
+    [data],
+  );
 
   //   when user navigations to giveaway details screen from bookmark screen
   const fetchData = useCallback(async gameId => {

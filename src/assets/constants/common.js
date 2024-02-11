@@ -96,6 +96,17 @@ const topHeaderData = [
       },
     ],
   },
+  {
+    id: 3,
+    type: 'webview',
+    options: [
+      {
+        id: 1,
+        icon: 'Menu',
+        name: 'menu',
+      },
+    ],
+  },
 ];
 
 const gamePlatformData = [
@@ -232,6 +243,33 @@ const giveAwaySpecs = [
   },
 ];
 
+const webViewActions = [
+  {
+    id: 1,
+    slug: 'copy',
+    icon: 'Copy',
+    title: 'Copy url',
+  },
+  {
+    id: 2,
+    slug: 'add_bookmark',
+    icon: 'PenAdd',
+    title: 'Add to bookmark',
+  },
+  {
+    id: 3,
+    slug: 'remove_bookmark',
+    icon: 'PenRemove',
+    title: 'Remove from bookmark',
+  },
+  {
+    id: 4,
+    slug: 'my_bookmark',
+    icon: 'RulerPen',
+    title: 'My bookmarks',
+  },
+];
+
 const staticData = {
   bottomTabsList,
   topHeaderData,
@@ -240,6 +278,7 @@ const staticData = {
   giveawaySortBy,
   infoMessage,
   giveAwaySpecs,
+  webViewActions,
 };
 
 export default staticData;

@@ -3,7 +3,7 @@ import DynamicIcon from '@components/common/dynamic-icon';
 import { Header } from '@rneui/base';
 import { Text } from '@rneui/themed';
 import React, { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 
 function TopBackHeader(props) {
   const { title, onAction } = props;
@@ -14,12 +14,13 @@ function TopBackHeader(props) {
         backgroundColor={appTheme.COLORS.appPrimary}
         containerStyle={styles.headerContainer}
         leftComponent={
-          <DynamicIcon
-            name="ArrowLeft"
-            size={appTheme.SIZES['3xl']}
-            color={appTheme.COLORS.white}
-            onPress={onAction}
-          />
+          <Pressable hitSlop={50} onPress={onAction}>
+            <DynamicIcon
+              name="ArrowLeft"
+              size={appTheme.SIZES['3xl']}
+              color={appTheme.COLORS.white}
+            />
+          </Pressable>
         }
         centerComponent={{
           text: title,

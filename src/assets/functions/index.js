@@ -17,6 +17,14 @@ const toastConfig = type => {
       style: { marginTop: 40, zIndex: 100 },
       icon: 'auto',
     };
+  } else if (type === 'info') {
+    return {
+      duration: 3000,
+      position: 'top',
+      type: 'info',
+      style: { marginTop: 40, zIndex: 100 },
+      icon: 'auto',
+    };
   }
 };
 
