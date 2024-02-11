@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainStack from '@screens/stacks/main-stack';
 import GiveawayDetails from '@screens/live/giveaway-details';
-import BookMarkScreen from '@screens/settings/bookmark-screen';
+import BookMarksScreen from '@screens/settings/bookmarks-screen';
 import WebviewScreen from '@components/webview/webview-screen';
 
 const Stack = createNativeStackNavigator();
@@ -21,7 +21,7 @@ const RootStack = () => {
         <Stack.Screen name="GiveawayDetails" component={GiveawayDetails} />
 
         {/* My Bookmarks Screen */}
-        <Stack.Screen name="MyBookmarks" component={BookMarkScreen} />
+        <Stack.Screen name="MyBookmarks" component={BookMarksScreen} />
 
         {/* WebView */}
         <Stack.Screen name="WebViewScreen" component={WebviewScreen} />

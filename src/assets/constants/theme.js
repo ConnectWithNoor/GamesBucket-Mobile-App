@@ -15,7 +15,7 @@ export const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
   gray: '#7c7c7c',
-  red: 'FF0000',
+  red: '#FF0000',
   green: '#00FF00',
 };
 
@@ -70,12 +70,6 @@ export const STYLES = {
     flex: 1,
     backgroundColor: COLORS.appPrimary,
     color: COLORS.white,
-  },
-
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   // typography styles

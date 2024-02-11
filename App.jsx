@@ -12,6 +12,9 @@ import SplashScreen from 'react-native-splash-screen';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import FlashMessage from 'react-native-flash-message';
 import RootStack from '@screens/stacks/root-stack';
+import { Provider } from 'react-redux';
+import { persistor, store } from '@store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function App() {
   const flashMessageRef = useRef(null);
@@ -26,8 +29,11 @@ function App() {
         style={styles.container}
         edges={['right', 'left', 'bottom']}>
         <StatusBar barStyle={'light-content'} backgroundColor={'#000123'} />
-
-        <RootStack />
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <RootStack />
+          </PersistGate>
+        </Provider>
 
         <FlashMessage ref={flashMessageRef} position={'top'} floating={true} />
       </SafeAreaView>

@@ -33,7 +33,7 @@ const WebviewScreen = ({ route, navigation }) => {
         handleBookmark('remove'); //TODO: create this function
         break;
       case 'my_bookmarks':
-        navigator.navigare('MyBookmarks');
+        navigation.navigate('MyBookmarks');
         break;
       case 'default':
         setShowMenu(false);

@@ -16,6 +16,8 @@ import {
   PenAdd,
   PenRemove,
   RulerPen,
+  Trash,
+  ArchiveTick,
 } from 'iconsax-react-native';
 import appTheme from '@assets/constants/theme';
 
@@ -34,6 +36,8 @@ const iconComponent = {
   PenAdd,
   PenRemove,
   RulerPen,
+  Trash,
+  ArchiveTick,
 };
 
 const DynamicIcon = props => {

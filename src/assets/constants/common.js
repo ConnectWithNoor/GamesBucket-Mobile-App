@@ -1,7 +1,7 @@
 import { Brodcast, Game, DiscountCircle, Setting } from 'iconsax-react-native';
 import appTheme from './theme';
 import LiveScreen from '@screens/live/live-screen';
-import SettingsScreen from '@screens/settings/bookmark-screen';
+import SettingsScreen from '@screens/settings/bookmarks-screen';
 import { loader, notFound } from './animation';
 
 const bottomTabsList = [
@@ -264,7 +264,7 @@ const webViewActions = [
   },
   {
     id: 4,
-    slug: 'my_bookmark',
+    slug: 'my_bookmarks',
     icon: 'RulerPen',
     title: 'My bookmarks',
   },

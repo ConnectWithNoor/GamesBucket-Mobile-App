@@ -109,7 +109,7 @@ const GiveawayDetails = props => {
             <CustomAnimation data={errorMessage} style={{ minHeight: 200 }} />
           </View>
         ) : (
-          <View style={appTheme.STYLES.contentContainer}>
+          <View style={styles.ThumbnailContainer}>
             <GiveAwayThumbnail data={data} />
             <View style={styles.giveAwayCardContent}>
               {/* chip and bookmark button */}
@@ -277,5 +277,10 @@ const styles = StyleSheet.create({
     fontFamily: appTheme.FONTS.nm,
     fontSize: appTheme.SIZES.md,
     color: appTheme.COLORS.white,
+  },
+  ThumbnailContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
