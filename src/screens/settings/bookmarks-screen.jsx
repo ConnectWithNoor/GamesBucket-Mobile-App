@@ -110,7 +110,7 @@ const BookmarksScreen = ({ navigation }) => {
       <View styles={styles.contentContainer}>
         <SearchInput
           value={queryText}
-          onChangeText={val => handleSearch(val)}
+          onChange={val => handleSearch(val)}
           placeholder="Search Bookmarks..."
         />
       </View>
